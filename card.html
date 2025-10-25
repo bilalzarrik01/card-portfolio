@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Flip Card — Profile / Social Links</title>
+<style>
+  :root{
+    --card-w: 340px;
+    --card-h: 460px;
+    --glass: rgba(255,255,255,0.09);
+    --glass-border: rgba(255,255,255,0.14);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: url('g90_stage_dsk_fb_3840_1680.webp') no-repeat center center / cover;
+
+
+  background-attachment: fixed; 
+  perspective: 1000px;
+}
+
+  .scene{
+    width:var(--card-w);
+    height:var(--card-h);
+    position:relative;
+  }
+
+  /* card container that will rotate */
+  .card {
+    width:100%;
+    height:100%;
+    position:relative;
+    transform-style:preserve-3d;
+    transition: transform 0.9s cubic-bezier(.2,.9,.3,1);
+    cursor:pointer;
+  }
+
+  /* rotate on hover (desktop) */
+  .scene:hover .card { transform: rotateY(180deg); }
+
+  /* also allow toggling with JS on touch devices */
+  .card.is-flipped { transform: rotateY(180deg); }
+
+  .side{
+    position:absolute;
+    inset:0;
+    border-radius:20px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 18px 40px rgba(2,8,30,0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color:#fff;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:28px;
+    backface-visibility:hidden;
+  }
+
+  /* front content */
+  .front { gap:8px; }
+  .avatar{
+    width:110px;height:110px;border-radius:50%;
+    overflow:hidden;border:4px solid rgba(255,255,255,0.35);
+    box-shadow:0 6px 20px rgba(0,0,0,0.4);
+  }
+  .avatar img{width:100%;height:100%;object-fit:cover;display:block;}
+
+  h2{font-size:1.35rem;margin-top:8px;margin-bottom:6px;letter-spacing:0.2px;}
+  .role{font-size:0.92rem;opacity:0.9;margin-bottom:6px;}
+  .desc{font-size:0.88rem;opacity:0.85;text-align:center;line-height:1.35;margin:0 6px 12px;}
+
+  .front .icons-row{
+    display:flex;gap:12px;margin-top:8px;
+    align-items:center;justify-content:center;
+  }
+  .pill-btn{
+    margin-top:14px;
+    padding:10px 22px;border-radius:999px;background:linear-gradient(90deg,#000000,#ffffff);
+    color:#fff;text-decoration:none;font-weight:600;display:inline-block;
+    box-shadow:0 8px 20px rgba(109, 130, 255, 0.12);
+  }
+  .note{font-size:0.78rem;opacity:0.75;margin-top:10px;}
+
+  /* back side (rotated) */
+  .back{
+    transform: rotateY(180deg);
+    gap:18px;
+    justify-content:center;
+  }
+  .back h3{font-size:1.05rem;margin-bottom:2px;}
+  .back p{font-size:0.88rem;opacity:0.9;margin-bottom:6px;}
+
+  .socials{
+    display:flex;
+    gap:18px;
+    align-items:center;
+    justify-content:center;
+    margin-top:6px;
+  }
+
+  .social-link{
+    width:64px;height:64px;border-radius:12px;
+    display:flex;align-items:center;justify-content:center;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    border:1px solid rgba(255,255,255,0.04);
+    transition: transform .22s, box-shadow .22s;
+    text-decoration:none;color:inherit;
+  }
+  .social-link:hover{ transform: translateY(-6px) scale(1.05); box-shadow:0 12px 30px rgba(2,8,30,0.45); }
+
+  /* svg icon size */
+  .social-link svg{ width:28px;height:28px; display:block; }
+
+  /* small screen tweaks */
+  @media (max-width:420px){
+    :root{ --card-w: 320px; --card-h: 500px; }
+    .pill-btn{ padding:10px 18px; }
+  }
+</style>
+</head>
+<body>
+  <div class="scene" aria-label="Profile card">
+    <div class="card" id="card">
+      <!-- front -->
+      <div class="side front" role="region" aria-labelledby="name">
+        <div class="avatar" aria-hidden="true">
+          <img src="Picsart_25-09-20_15-00-03-237 (2).png" alt="Profile photo" />
+        </div>
+
+        <h2 id="name">Bilal Zarrik</h2>
+        <div class="role">Full-stack devloper</div>
+        <div class="desc">Back-end , Front-end .</div>
+
+        <div class="icons-row" aria-hidden="true">
+          <!-- small social dots if desired -->
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="#7ee787"><circle cx="6" cy="6" r="6"/></svg>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="#ffd166"><circle cx="6" cy="6" r="6"/></svg>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="#8ec5ff"><circle cx="6" cy="6" r="6"/></svg>
+        </div>
+
+        <a class="pill-btn" href="mailto:sarah@example.com" target="_blank" rel="noopener">Contact Me</a>
+        <div class="note">Hover or tap the card to see social links →</div>
+      </div>
+
+      <!-- back -->
+      <div class="side back" role="region" aria-labelledby="follow">
+        <h3 id="follow">Follow me</h3>
+        <p>Connect on these platforms:</p>
+
+        <div class="socials" role="list">
+          <!-- Facebook -->
+          <a role="listitem" class="social-link" href="https://www.facebook.com/bilal.zarik" target="_blank" rel="noopener" aria-label="Facebook">
+            <!-- FB SVG -->
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M22 12a10 10 0 1 0-11.5 9.86v-6.99h-2.3V12h2.3V9.8c0-2.27 1.35-3.52 3.42-3.52.99 0 2.03.18 2.03.18v2.23h-1.14c-1.12 0-1.47.7-1.47 1.42V12h2.5l-.4 2.87h-2.1v6.99A10 10 0 0 0 22 12z"></path>
+            </svg>
+          </a>
+
+          <!-- TikTok -->
+          <a role="listitem" class="social-link" href="https://www.tiktok.com/@ssj_bilal?lang=fr" target="_blank" rel="noopener" aria-label="TikTok">
+            <!-- TikTok-like SVG -->
+             
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+<i class="fab fa-tiktok fa-2x"></i>   
+          </a>
+
+          <!-- LinkedIn -->
+          <a role="listitem" class="social-link" href="https://www.linkedin.com/in/bilal-zarrik-15208238a/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <!-- LinkedIn SVG -->
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8.5h4V24h-4zM8.5 8.5h3.84v2.06h.05c.54-1.02 1.86-2.06 3.84-2.06 4.11 0 4.86 2.7 4.86 6.21V24h-4V15.2c0-2.1-.04-4.8-2.92-4.8-2.92 0-3.37 2.29-3.37 4.65V24h-4z"/>
+            </svg>
+          </a>
+        </div>
+
+        <div style="margin-top:12px;font-size:0.85rem;opacity:0.85">Tap anywhere on the card to flip back</div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  // Enable tap/click flip for touch devices.
+  (function () {
+    const card = document.getElementById('card');
+    let touchEnabled = false;
+
+    function toggleFlip(e){
+      // if user clicked a link, don't toggle
+      if (e.target.closest('a')) return;
+      card.classList.toggle('is-flipped');
+    }
+
+    // detect touch support
+    window.addEventListener('touchstart', function onFirstTouch() {
+      touchEnabled = true;
+      window.removeEventListener('touchstart', onFirstTouch, false);
+    }, false);
+
+    // On touch devices, use click to toggle.
+    card.addEventListener('click', function(e){
+      if (touchEnabled) {
+        toggleFlip(e);
+      }
+      // On non-touch, native :hover handles flips; clicking will also toggle so user can lock it
+      else {
+        // optional: toggle for keyboard accessibility
+      }
+    });
+
+    // Accessibility: allow keyboard users to flip with Enter/Space when focused
+    card.setAttribute('tabindex', '0');
+    card.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.classList.toggle('is-flipped');
+      }
+    });
+  })();
+</script>
+</body>
+</html>

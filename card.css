@@ -1,0 +1,19 @@
+.card{
+    width: var(--card-with);
+      height: var(--card-height);
+      position:  relative;
+      display: flex;
+      justify-content: center;
+      align-items: end;
+      padding: 0 36px;
+      perspective: 2500px;
+      margin: 0 50px;
+
+}
+.card:hover .warapper{
+    transform: perspective(900px) translateY(-5%)
+    rotateX(25deg) translateZ(0);
+    box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow :  2px 35px 32px -8px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
+}
